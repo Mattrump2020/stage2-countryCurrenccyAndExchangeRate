@@ -20,6 +20,10 @@ app.use('/countries', countriesRouter);
 app.use('/status', statusRouter);
 app.use('/cache', express.static(path.resolve('cache')));
 
+app.get('/', (req, res) => {
+  res.json({ message: 'API is running' });
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   if (res.headersSent) return next(err);
@@ -27,7 +31,7 @@ app.use((err, req, res, next) => {
 });
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () => {
     console.log(`server running on ${port}`);

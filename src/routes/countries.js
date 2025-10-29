@@ -9,15 +9,23 @@ const router = express.Router();
 router.post('/refresh', async (req, res) => {
   try {
     const result = await refreshAll();
-    res.json({ message: 'Refresh successful', total: result.total, last_refreshed_at: result.last_refreshed_at });
+    res.json({
+      message: 'Refresh successful',
+      total: result.total,
+      last_refreshed_at: result.last_refreshed_at.toISOString()
+    });
   } catch (err) {
     if (err.isExternal) {
-      return res.status(503).json({ error: 'External data source unavailable', details: err.message });
+      return res.status(503).json({
+        error: 'External data source unavailable',
+        details: err.message
+      });
     }
     console.error(err);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
+
 
 router.get('/', async (req, res) => {
   try {
