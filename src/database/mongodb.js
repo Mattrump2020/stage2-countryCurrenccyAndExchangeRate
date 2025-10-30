@@ -21,7 +21,7 @@ function connectMongoDb (){
 
         mongoose.connection.on("error", (err) =>{
             console.error("MongoDb connetion error:", err.message)
-             // Optional: retry logic or alerting can go here
+             
         })
     }
     catch (error){
